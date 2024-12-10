@@ -44,6 +44,17 @@ function Shoes({ updateSize, addShoe, removeShoe, shoes }) {
       >
         +
       </button>
+      <section className="shoes__summary" role="region" aria-label="Shoe Sizes Summary">
+        <h3>Shoe Sizes Summary</h3>
+        <ul>
+        {shoes.map((shoe, index) => (
+        <li key={shoe.id}>
+        Person {index + 1}: {shoe.size || "Not selected"}
+        </li>
+    ))}
+  </ul>
+</section>
+
     </section>
   );
 }

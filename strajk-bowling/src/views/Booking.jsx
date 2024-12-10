@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Booking.scss";
-
 import BookingInfo from "../components/BookingInfo/BookingInfo";
 import ErrorMessage from "../components/ErrorMessage/ErrorMessage";
 import Navigation from "../components/Navigation/Navigation";
