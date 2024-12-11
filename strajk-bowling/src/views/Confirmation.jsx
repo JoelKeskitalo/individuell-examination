@@ -47,9 +47,13 @@ function Confirmation() {
             disabled="disabled"
           />
           <article className="confirmation__price">
+            <h3>Price Breakdown</h3>
+            <p>{`${confirmation.people} x 120 sek (players)`}</p>
+            <p>{`${confirmation.lanes} x 100 sek (lanes)`}</p>
             <p>Total:</p>
             <p>{confirmation.price} sek</p>
           </article>
+
           <button className="button confirmation__button">
             Sweet, let's go!
           </button>
