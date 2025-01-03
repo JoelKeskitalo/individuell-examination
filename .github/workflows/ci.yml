@@ -25,6 +25,6 @@ jobs:
         run: npm install
         working-directory: ./strajk-bowling
 
-      - name: Run tests
+      - name: Run tests with coverage
         run: npm test
         working-directory: ./strajk-bowling
