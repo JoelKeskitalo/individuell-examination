@@ -6,9 +6,10 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true,
+    setupFiles: './src/setupTests.js', // Korrekt länk till setupTests.js
     transformMode: {
-      web: [/\.jsx?$/], // Endast transformera JS/JSX
+      web: [/\.jsx?$/],
     },
-    css: false, // Ignorera CSS helt under tester
+    css: false,
   },
 });

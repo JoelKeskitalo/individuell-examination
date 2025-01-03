@@ -2,13 +2,13 @@ import "./BookingInfo.scss";
 
 import Input from "../Input/Input";
 
-function BookingInfo({ updateBookingDetails }) {
+function BookingInfo({ updateBookingDetails, handleSubmit }) {
   return (
     <section className="booking-info">
       <header>
         <h2 className="booking-info__heading">When, WHAT & Who</h2>
       </header>
-      <form className="booking-info__details">
+      <form className="booking-info__details" onSubmit={handleSubmit}>
         <section className="booking-info__when">
           <Input
             label="Date"
@@ -40,6 +40,9 @@ function BookingInfo({ updateBookingDetails }) {
           handleChange={updateBookingDetails}
           maxLength={2}
         />
+        <button type="submit" aria-label="Submit">
+          Submit
+        </button>
       </form>
     </section>
   );

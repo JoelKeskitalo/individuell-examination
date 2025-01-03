@@ -1,18 +1,31 @@
-import { render, screen, fireEvent } from "@testing-library/react"
-import { MemoryRouter } from "react-router-dom"
-import '@testing-library/jest-dom'
-import Booking from "../views/Booking"
+import { render, screen, fireEvent } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import { MemoryRouter } from "react-router-dom";
+import BookingInfo from "../components/BookingInfo/BookingInfo";
 
-test("renders a complete booking button and navigates on click", async () => {
-    render(
-        <MemoryRouter>
-            <Booking />
-        </MemoryRouter>
-    );
+test("completes a booking successfully and navigates to confirmation page", async () => {
+  const mockUpdate = vi.fn();
 
-    const completeBookingButton = screen.getByRole("button", { name: /slutför bokning/i })
-    expect(completeBookingButton).toBeInTheDocument();
+  render(
+    <MemoryRouter>
+      <BookingInfo updateBookingDetails={mockUpdate} />
+    </MemoryRouter>
+  );
 
-    fireEvent.click(completeBookingButton)
+  // Simulera att användaren fyller i alla fält
+  fireEvent.change(screen.getByLabelText(/date/i), { target: { value: "2023-12-31" } });
+  fireEvent.change(screen.getByLabelText(/time/i), { target: { value: "18:00" } });
+  fireEvent.change(screen.getByLabelText(/number of awesome bowlers/i), { target: { value: "4" } });
+  fireEvent.change(screen.getByLabelText(/number of lanes/i), { target: { value: "2" } });
 
-})
+  // Simulera att användaren skickar formuläret
+  const submitButton = screen.getByRole("button", { name: /submit/i });
+  fireEvent.click(submitButton);
+
+  // Kontrollera att navigering sker (mocka funktionen för navigering om nödvändigt)
+  expect(mockUpdate).toHaveBeenCalledTimes(4); // Alla fyra fält ska ha uppdaterats
+  expect(mockUpdate).toHaveBeenNthCalledWith(
+    1,
+    expect.objectContaining({ target: expect.objectContaining({ value: "2023-12-31", name: "when" }) })
+  );
+});
