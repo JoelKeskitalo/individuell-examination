@@ -1,10 +1,12 @@
-global.fetch = require('node-fetch');  // Polyfill för fetch i Node.js
-global.Response = require('node-fetch').Response;  // Polyfill för Response
-global.Request = require('node-fetch').Request;  // Polyfill för Request
-global.Headers = require('node-fetch').Headers;  // Polyfill för Headers
+const fetch = require('node-fetch'); 
+global.fetch = fetch; 
+global.Response = fetch.Response;  
+global.Request = fetch.Request;  
+global.Headers = fetch.Headers; 
 
-import { server } from './mocks/server';  // Importera mock-servern
 
-beforeAll(() => server.listen());  // Starta servern innan tester
-afterEach(() => server.resetHandlers());  // Återställ handlers efter varje test
-afterAll(() => server.close());  // Stäng servern när testerna är klara
+import { server } from './mocks/server';  
+
+beforeAll(() => server.listen());  
+afterEach(() => server.resetHandlers()); 
+afterAll(() => server.close());  
