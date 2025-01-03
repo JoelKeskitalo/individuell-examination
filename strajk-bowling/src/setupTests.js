@@ -1,11 +1,7 @@
-import('node-fetch').then((fetchModule) => {
-    global.fetch = fetchModule.default;
-    global.Response = fetchModule.Response;
-    global.Request = fetchModule.Request;
-    global.Headers = fetchModule.Headers;
-  });
-  
-
+global.fetch = require('node-fetch');  // Polyfill för fetch i Node.js
+global.Response = require('node-fetch').Response;  // Polyfill för Response
+global.Request = require('node-fetch').Request;  // Polyfill för Request
+global.Headers = require('node-fetch').Headers;  // Polyfill för Headers
 
 import { server } from './mocks/server';  // Importera mock-servern
 
