@@ -4,12 +4,19 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   test: {
-    environment: 'jsdom',
-    globals: true,
-    setupFiles: './src/setupTests.js', // Korrekt länk till setupTests.js
+    environment: 'jsdom',  
+    globals: true,  
+    setupFiles: './src/setupTests.js', 
     transformMode: {
-      web: [/\.jsx?$/],
+      web: [/\.jsx?$/],  
     },
-    css: false,
+    css: false,  
+    coverage: {
+      provider: 'c8',  
+      reporter: ['text', 'json', 'html'],  
+      threshold: {
+        global: 80, 
+      },
+    },
   },
 });

@@ -1,8 +1,12 @@
-import { sendBooking } from "../utils/sendBooking";
+import { sendBooking } from '../utils/sendBooking';
 
-test("sends a booking successfully", async () => {
-  const mockBooking = { when: "2023-01-01", lanes: 2, people: 5, shoes: 5 };
-  const response = await sendBooking(mockBooking);
-  expect(response).toHaveProperty("confirmationId");
+test('sends a booking successfully', async () => {
+  const bookingData = { name: "Test User", shoeSize: 42 };
+
+  // Anropa sendBooking och få responsen
+  const response = await sendBooking(bookingData);
+  console.log("Mottagen respons:", response);  // Logga den mottagna responsen
+
+  // Kontrollera om confirmationId finns i responsen och om det matchar förväntad värde
   expect(response.confirmationId).toBe("MOCK12345");
 });

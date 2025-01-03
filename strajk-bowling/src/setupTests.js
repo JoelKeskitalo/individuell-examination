@@ -1,7 +1,5 @@
-import { server } from "./mocks/server";
-import "@testing-library/jest-dom";
-import "whatwg-fetch"; // Polyfill för fetch
+import { server } from './mocks/server';  // Importera mock-servern
 
-beforeAll(() => server.listen({ onUnhandledRequest: "warn" }));
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
+beforeAll(() => server.listen());  // Starta servern innan tester
+afterEach(() => server.resetHandlers());  // Återställ handlers efter varje test
+afterAll(() => server.close());  // Stäng servern när testerna är klara

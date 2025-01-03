@@ -1,21 +1,14 @@
-import { rest } from "msw";
+// Mock Service Worker - mocka fetch med MSW
+import { rest } from 'msw';
 
 export const handlers = [
-  rest.post("https://h5jbtjv6if.execute-api.eu-north-1.amazonaws.com", async (req, res, ctx) => {
-    const { when, lanes, people, shoes } = await req.json();
+  rest.post('https://h5jbtjv6if.execute-api.eu-north-1.amazonaws.com', async (req, res, ctx) => {
+    const { name, shoeSize } = await req.json();
+
+    // Simulera ett lyckat svar med confirmationId
     return res(
       ctx.status(200),
-      ctx.json({
-        confirmationId: "MOCK12345",
-        when,
-        lanes,
-        people,
-        shoes,
-        totalPrice: people * 120 + lanes * 100,
-      })
+      ctx.json({ confirmationId: 'MOCK12345' })
     );
-  }),
-  rest.get("https://jsonplaceholder.typicode.com/posts/1", (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({ id: 1, title: "Mock Post" }));
   }),
 ];
