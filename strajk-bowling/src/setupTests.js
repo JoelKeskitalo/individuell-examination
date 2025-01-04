@@ -1,15 +1,22 @@
-// src/setupTests.js
-import '@testing-library/jest-dom';  // Denna import är tillräcklig för att utöka expect med matcher
-import { server } from './mocks/server'; // Importera mock servern
-import { Response } from 'node-fetch'; // Polyfill för Response
-global.Response = Response; // Gör den global
+import { handlers } from './mocks/handlers';
 
+global.fetch = async (url, options = {}) => {
+  const method = options.method || 'GET';
 
-// Setup mock server innan testerna börjar
-beforeAll(() => server.listen());
+  // Hitta en matchande handler
+  const handler = handlers.find(
+    (h) => h.method === method && url.includes(h.url)
+  );
 
-// Återställ mockade svar efter varje test
-afterEach(() => server.resetHandlers());
+  if (!handler) {
+    console.warn('Unhandled request:', method, url);
+    throw new Error(`Unhandled request: ${method} ${url}`);
+  }
 
-// Stäng ner servern efter alla tester
-afterAll(() => server.close());
+  // Returnera mock-svaret
+  return {
+    ok: true,
+    status: 200,
+    json: async () => handler.response,
+  };
+};
