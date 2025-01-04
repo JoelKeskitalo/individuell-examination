@@ -1,16 +1,14 @@
-const { fetch, Response, Request, Headers } = require('undici');
+// src/setupTests.js
+import '@testing-library/jest-dom';  // Denna import är tillräcklig för att utöka expect med matcher
+import { server } from './mocks/server'; // Importera mock servern
+import { Response } from 'node-fetch'; // Polyfill för Response
+global.Response = Response; // Gör den global
 
-global.fetch = fetch;  // Polyfill för fetch
-global.Response = Response;  // Polyfill för Response
-global.Request = Request;  // Polyfill för Request
-global.Headers = Headers;  // Polyfill för Headers
 
-import { server } from './mocks/server';  // Importera mock-servern från din MSW-konfiguration
-
-// Starta servern innan tester
+// Setup mock server innan testerna börjar
 beforeAll(() => server.listen());
 
-// Återställ MSW handlers efter varje test
+// Återställ mockade svar efter varje test
 afterEach(() => server.resetHandlers());
 
 // Stäng ner servern efter alla tester
