@@ -1,22 +1,20 @@
-import { handlers } from './mocks/handlers';
+import { server } from './mocks/server'
+import '@testing-library/jest-dom';
 
-global.fetch = async (url, options = {}) => {
-  const method = options.method || 'GET';
-
-  // Hitta en matchande handler
-  const handler = handlers.find(
-    (h) => h.method === method && url.includes(h.url)
-  );
-
-  if (!handler) {
-    console.warn('Unhandled request:', method, url);
-    throw new Error(`Unhandled request: ${method} ${url}`);
-  }
-
-  // Returnera mock-svaret
-  return {
-    ok: true,
-    status: 200,
-    json: async () => handler.response,
+// Fix för `requestSubmit`
+if (!HTMLFormElement.prototype.requestSubmit) {
+  HTMLFormElement.prototype.requestSubmit = function () {
+    if (this instanceof HTMLFormElement) {
+      this.submit();
+    }
   };
-};
+}
+
+// Starta servern före alla tester
+beforeAll(() => server.listen({ onUnhandledRequest: 'warn' }));
+
+// Återställ mockar efter varje test
+afterEach(() => server.resetHandlers());
+
+// Stäng servern efter alla tester
+afterAll(() => server.close());
