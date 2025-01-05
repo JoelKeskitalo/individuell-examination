@@ -2,6 +2,8 @@
 import { setupServer } from 'msw/node'; // Importerar serverinställningarna
 import { http } from 'msw';  // Vi använder http här istället för rest
 
+
+
 // Skapa servern som mockar POST-anrop på den specifika URL:n
 export const server = setupServer(
   http.post('https://h5jbtjv6if.execute-api.eu-north-1.amazonaws.com', (req, res, ctx) => {
