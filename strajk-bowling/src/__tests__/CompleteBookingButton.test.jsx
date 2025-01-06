@@ -22,8 +22,7 @@ test("completes a booking successfully and navigates to confirmation page", asyn
   const submitButton = screen.getByRole("button", { name: /submit/i });
   fireEvent.click(submitButton);
 
-  // Kontrollera att navigering sker (mocka funktionen för navigering om nödvändigt)
-  expect(mockUpdate).toHaveBeenCalledTimes(4); // Alla fyra fält ska ha uppdaterats
+  expect(mockUpdate).toHaveBeenCalledTimes(4); 
   expect(mockUpdate).toHaveBeenNthCalledWith(
     1,
     expect.objectContaining({ target: expect.objectContaining({ value: "2023-12-31", name: "when" }) })
