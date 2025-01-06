@@ -1,7 +1,6 @@
 import { setupServer } from 'msw/node';
 import { handlers } from './handlers';
 
-export const server = setupServer(...handlers);
 
 // Fixar fetch-problemet i Node.js
 if (typeof global.fetch === 'undefined') {
@@ -11,3 +10,5 @@ if (typeof global.fetch === 'undefined') {
     global.Headers = Headers;
     global.Request = Request;
 }
+
+export const server = setupServer(...handlers);
